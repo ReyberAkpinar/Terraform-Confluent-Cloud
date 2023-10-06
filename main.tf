@@ -18,7 +18,7 @@ data "confluent_schema_registry_region" "essentials" {
 }
 
 resource "confluent_schema_registry_cluster" "essentials" {
-  package      = data.confluent_schema_registry_region.essentials.package
+  package = data.confluent_schema_registry_region.essentials.package
 
   environment {
     id = confluent_environment.staging.id
@@ -41,10 +41,10 @@ resource "confluent_kafka_cluster" "standard" {
 }
 
 resource "confluent_flink_compute_pool" "main" {
-  display_name     = "Flink-Coding-Session"
-  cloud            = "AWS"
-  region           = "eu-central-1"
-  max_cfu          = 5
+  display_name = "Flink-Coding-Session"
+  cloud        = "AWS"
+  region       = "eu-central-1"
+  max_cfu      = 5
   environment {
     id = confluent_environment.staging.id
   }
@@ -162,7 +162,7 @@ resource "confluent_role_binding" "app-consumer-developer-read-from-topic" {
 }
 
 resource "confluent_role_binding" "app-consumer-developer-read-from-group" {
-  principal = "User:${confluent_service_account.app-consumer.id}"
-  role_name = "DeveloperRead"
+  principal   = "User:${confluent_service_account.app-consumer.id}"
+  role_name   = "DeveloperRead"
   crn_pattern = "${confluent_kafka_cluster.standard.rbac_crn}/kafka=${confluent_kafka_cluster.standard.id}/group=confluent_cli_consumer_*"
 }
